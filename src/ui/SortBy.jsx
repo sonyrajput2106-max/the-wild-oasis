@@ -6,8 +6,11 @@ function SortBy({ options }) {
   const sortBy = searchParams.get("sortBy") || "";
 
   function handleChange(e) {
-    searchParams.set("sortBy", e.target.value);
-    setSearchParams(searchParams);
+    const params = new URLSearchParams(searchParams);
+    params.set("sortBy", e.target.value);
+    params.set("page", 1);
+
+    setSearchParams(params);
   }
 
   return (

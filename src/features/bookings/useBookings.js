@@ -2,7 +2,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 import { getBookings } from "../../services/apiBookings";
 import { useSearchParams } from "react-router-dom";
-import { PAGE_SIZE } from "../utils/constants";
+import { PAGE_SIZE } from "../../utils/constants";
 
 export function useBookings() {
   const queryClient = useQueryClient();
@@ -21,12 +21,12 @@ export function useBookings() {
   const sortBy = { field, direction };
 
   //PAGINATION
-  const page = !searchParams.get("page") ? 1 : Number(searchParams.get("page"));
+  const page = Math.max(1, Number(searchParams.get("page")) || 1);
 
   //QUERY
   const {
     isLoading,
-    data: { data: bookings, count } = {},
+    data: { data: bookings = [], count = 0 } = {},
     error,
   } = useQuery({
     queryKey: ["bookings", filter, sortBy, page],

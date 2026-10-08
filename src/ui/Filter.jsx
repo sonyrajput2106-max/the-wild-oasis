@@ -40,9 +40,12 @@ function Filter({ filterField, options }) {
   const currentFilter = searchParams.get(filterField) || options.at(0).value;
 
   function handleClick(value) {
-    searchParams.set(filterField, value);
-    setSearchParams(searchParams);
+    const params = new URLSearchParams(searchParams);
+    params.set(filterField, value);
+    params.set("page", 1);
+    setSearchParams(params);
   }
+
   return (
     <StyledFilter>
       {options.map((option) => (
