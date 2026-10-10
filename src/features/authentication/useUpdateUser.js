@@ -10,9 +10,9 @@ export function useUpdateUser(reset) {
     mutationFn: updateCurrentUser,
     onSuccess: ({ user }) => {
       toast.success("User account successfully updated!");
-      //   queryClient.setQueryData("user", user);
+      queryClient.setQueryData(["user"], user);
 
-      queryClient.invalidateQueries({ queryKey: ["user"] });
+      //   queryClient.invalidateQueries({ queryKey: ["user"] });
     },
     onError: () => {
       toast.error("Could not edit cabin.");
